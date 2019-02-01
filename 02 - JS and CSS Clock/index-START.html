@@ -62,11 +62,36 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%; /*makes the origin of the hands at the center of the clock so they rotate at the center of the clock*/
+      transform: rotate(90deg);/*starts the hands at the top of the clock*/
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
 
   </style>
 
   <script>
+
+  const secondHand = document.querySelector(".second-hand");
+  const minuteHand = document.querySelector(".min-hand");
+  const hourHand = document.querySelector(".hour-hand");
+
+  function setDate() {
+    const now = new Date();
+    const seconds = now.getSeconds();//retrieves the seconds from the current date
+    const secondsDegrees = ((seconds / 60) * 360) + 90; //converts seconds to degrees
+    secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+    const minutes = now.getMinutes();
+    const minutesDegrees = ((minutes / 60) * 360) + 90;
+    minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
+
+    const hours = now.getHours();
+    const hoursDegrees = ((hours / 12) * 360) + 90;
+    hoursHand.style.transform = `rotate(${hoursDegrees}deg)`;
+  }
+
+  setInterval(setDate, 1000);
 
 
   </script>
